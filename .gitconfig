@@ -1,0 +1,15 @@
+dist
+
+hakyll
+*.hi
+*.o
+*.swp
+*.swo
+*.aux
+*.log
+
+_cache
+
+cabal.sandbox.config
+.cabal-sandbox
+.stack-work
