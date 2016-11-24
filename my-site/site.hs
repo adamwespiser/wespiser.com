@@ -16,14 +16,31 @@ main = hakyll $ do
         compile compressCssCompiler
 
 
+    match "pages/*" $ do
+        route idRoute
+        compile copyFileCompiler
+        
+
     match "resume.pdf" $ do
         route idRoute
         compile copyFileCompiler
+
+    match "404.html" $ do
+        route idRoute
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
 
     match (fromList ["about.markdown", "writing.markdown", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
+    match "writings/wyas/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
     match "posts/*" $ do
@@ -61,6 +78,7 @@ main = hakyll $ do
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
+
 
     match "templates/*" $ compile templateCompiler
 
