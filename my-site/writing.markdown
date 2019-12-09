@@ -6,5 +6,5 @@ Here is a collection of my work and writings, examples which are larger than a s
 
 
 * [Write You A Scheme, Version 2](writings/wyas/home.html)    
-Release coming soon!(updated Nov 23, 2016)        
+(updated July 4, 2017)        
 

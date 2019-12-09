@@ -1,6 +1,9 @@
 dist
 cabal-dev
+my-site/_cache
+my-site/_cache/
 my-site/_cache/*
+my-site/templates/_cache/
 _site
 *.o
 *.hi
