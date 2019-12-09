@@ -15,11 +15,9 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-
-    match "pages/*" $ do
+    match "assets/*" $ do
         route idRoute
         compile copyFileCompiler
-        
 
     match "resume.pdf" $ do
         route idRoute

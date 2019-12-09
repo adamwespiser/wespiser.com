@@ -1,4 +1,4 @@
 #!/bin/bash
 stack build
 stack exec site rebuild
-sudo ./site preview -p 80
+# sudo ./site preview -p 80
