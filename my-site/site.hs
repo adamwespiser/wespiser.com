@@ -25,6 +25,10 @@ main = hakyll $ do
         route idRoute
         compile copyFileCompiler
 
+    match "robots.txt" $ do
+        route idRoute
+        compile copyFileCompiler
+
     match (fromList ["404.html", "info.html"]) $ do
         route idRoute
         let f404Ctx = defaultContext `mappend` constField "title" "Wespiser Blog"
@@ -54,6 +58,7 @@ main = hakyll $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
@@ -79,7 +84,7 @@ main = hakyll $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Wespiser Blog"       `mappend`
+                    constField "title" "Wespiser Blog: My Technical Writings" `mappend`
                     constField "header" ""                   `mappend`
                     defaultContext
 
@@ -91,9 +96,54 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateCompiler
 
+    create ["sitemap.xml"] $ do
+        route idRoute 
+        compile $ do 
+            posts <- recentFirst =<< loadAll "posts/*"
+            wyas  <- recentFirst =<< loadAll "writings/wyas/*"
+            singlePages <- loadAll $ fromList ["archive.html", "writing.markdown"]
+
+            let pages = posts `mappend` wyas `mappend` singlePages
+                siteMapCtx = listField "pages" postCtx (return pages) `mappend`
+                             constField "root" root
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/sitemap.xml" siteMapCtx
+
+    create ["atom.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx = postCtx `mappend` bodyField "description"
+            posts <- fmap (take 10) . recentFirst =<<
+                loadAllSnapshots "posts/*" "content"
+            renderAtom myFeedConfiguration feedCtx posts
+
+    create ["rss.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx = postCtx `mappend` bodyField "description"
+            posts <- fmap (take 10) . recentFirst =<<
+                loadAllSnapshots "posts/*" "content"
+            renderRss myFeedConfiguration feedCtx posts
+
+
+
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
+    constField "root" root       `mappend`
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+
+root :: String
+root = "http://www.wespiser.com"
+
+
+myFeedConfiguration :: FeedConfiguration
+myFeedConfiguration = FeedConfiguration
+    { feedTitle       = "Wespiser Blog: Feed"
+    , feedDescription = "This feed provides articles, hot off the presses, on a variety of technical topics."
+    , feedAuthorName  = "Adam Wespiser"
+    , feedAuthorEmail = "adamwespiser@gmail.com"
+    , feedRoot        = root
+    }

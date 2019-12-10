@@ -2,17 +2,29 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Adam Wespiser">
-    <meta property="og:image" content="img/home.jpg">
-    <meta name="description" content="A collection of writings and materials in the form of a blog.">
-    <link rel="shortcut icon" href="/img/lambda-hammer.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/img/lambda-hammer.ico">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content=$title$ >
+    <meta property=”og:site_name” content=”Wespiser Blog” >
+    <meta property="og:url" content="https://www.wespiser.com" >
+    <meta property="og:type" content="website" >
+    <meta property="og:locale" content="en_US" >
+    <meta property="og:description" content="A collection of writings and materials on software engineering, Haskell, programming languages, machine learning, and data science." >
+    <meta property="og:image" itemprop="image" content="/img/home_compress.jpg" >
+
+    <!-- Other meta tags -->
+    <meta name="author" content="Adam Wespiser" >
+    <meta name="twitter:site" content="@wespiser" >
+    <meta name="description" content="A collection of writings and materials on software engineering, Haskell, programming languages, machine learning, and data science." >
+    
+    <!-- Website Icon -->
+    <link rel="shortcut icon" href="/img/lambda-hammer.ico" type="image/x-icon" >
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/social-circles.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
+    <link rel="stylesheet" href="/assets/social-circles.min.css" >
 
     <title>$title$</title>
 
@@ -38,16 +50,19 @@
           <div class="form-inline my-lg-0">
             <ul class="navbar-nav mr-auto mt-0 mt-sm-0">
                 <li class="nav-item pl-2">
+                    <a class="icon-rss social-button grey" href="/rss.xml"></a>
+                </li>
+                <li class="nav-item pl-2 pr-2">
                     <a class="icon-twitter social-button grey" href="http://twitter.com/wespiser"></a>
                 </li>
-                <li class="nav-item pl-2">
+                <li class="nav-item pl-2 pr-2">
                     <a class="icon-github social-button grey" href="http://github.com/adamwespiser"></a>
                 </li>
-                <li class="nav-item pl-2">
+                <li class="nav-item pl-2 pr-2">
                     <a class="icon-facebook social-button grey" href="https://www.facebook.com/burlappsack"></a>
 
                 </li>
-                <li class="nav-item pl-2">
+                <li class="nav-item pl-2 pr-2">
                     <a class="icon-linkedin social-button grey" href="https://www.linkedin.com/in/adamwespiser"></a>
                 </li>
             </ul>
