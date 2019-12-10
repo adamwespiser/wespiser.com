@@ -1,10 +1,8 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
 
 
---------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
     match "img/*" $ do
@@ -19,15 +17,21 @@ main = hakyll $ do
         route idRoute
         compile copyFileCompiler
 
+    match "fonts/*" $ do
+        route idRoute
+        compile copyFileCompiler
+
     match "resume.pdf" $ do
         route idRoute
         compile copyFileCompiler
 
-    match "404.html" $ do
+    match (fromList ["404.html","info.html"]) $ do
         route idRoute
+        let f404Ctx = defaultContext `mappend` constField "title" ""
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-
+             >>= loadAndApplyTemplate "templates/default.html" f404Ctx
+             >>= relativizeUrls
+             
     match (fromList ["about.markdown", "writing.markdown", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
@@ -73,7 +77,7 @@ main = hakyll $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Home"                `mappend`
+                    constField "title" ""                    `mappend`
                     defaultContext
 
             getResourceBody

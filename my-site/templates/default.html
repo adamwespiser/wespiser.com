@@ -1,41 +1,77 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/social-circles.min.css">
 
+    <title>Adam Wespiser $title$</title>
 
-<meta name=viewport content="width=device-width, initial-scale=1">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<link rel="shortcut icon" href="/img/lambda-hammer.ico" />
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Adam Wespiser $title$</title>
-        <link rel="stylesheet" type="text/css" href="/css/default.css" />
-    </head>
-    <body>
-        <div id="header">
-            <div id="logo">
-                <a href="/">Wespiser</a>
-            </div>
-            <div id="navigation">
-                <a href="/">Home</a>
-                <a href="/writing.html">Writings</a>
-                <a href="/contact.html">Info</a>
-                <a href="/archive.html">Archive</a>
-            </div>
+  </head>
+  <body>
+    <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="/">Wespiser</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto mt-0 mt-sm-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/writing.html">writing<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/archive.html">archive</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/info.html">info</a>
+            </li>
+          </ul>
+          <div class="form-inline my-lg-0">
+            <ul class="navbar-nav mr-auto mt-0 mt-sm-0">
+                <li class="nav-item pl-2">
+                    <a class="icon-twitter social-button grey" href="http://twitter.com/wespiser"></a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="icon-github social-button grey" href="http://github.com/adamwespiser"></a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="icon-facebook social-button grey" href="https://www.facebook.com/burlappsack"></a>
+
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="icon-linkedin social-button grey" href="https://www.linkedin.com/in/adamwespiser"></a>
+                </li>
+            </ul>
+
+          </div>
         </div>
+      </nav>
 
+    <div class="container">
         <div id="content">
             <h1>$title$</h1>
-
             $body$
         </div>
-    </body>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->      
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href='/assets/atom-one-light.css' rel='stylesheet'/>
+    <script src='/assets/highlight.pack.js'></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154356397-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-154356397-1');
+    </script>
 
-<link href='/assets/atom-one-light.css' rel='stylesheet'/>
-<script src='/assets/highlight.pack.js'></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-
-
+</body>
 </html>
