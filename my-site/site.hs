@@ -144,6 +144,6 @@ myFeedConfiguration = FeedConfiguration
     { feedTitle       = "Wespiser Blog: Feed"
     , feedDescription = "This feed provides articles, hot off the presses, on a variety of technical topics."
     , feedAuthorName  = "Adam Wespiser"
-    , feedAuthorEmail = "adamwespiser@gmail.com"
+    , feedAuthorEmail = "noemail"
     , feedRoot        = root
     }
