@@ -1,5 +1,6 @@
 ---
 title: Python Pandas: First thoughts from an R fanboy...
+header: Python Pandas: First thoughts from an R fanboy...
 date: September 27, 2016
 ---
 

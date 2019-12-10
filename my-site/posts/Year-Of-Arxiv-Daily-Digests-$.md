@@ -1,9 +1,9 @@
 ---
 title: Year Of Arxiv Daily Digests
+header: Year Of Arxiv Daily Digests, what I learned...
 date: December 7, 2017
 ---
 
-#### A year of arxiv.org daily digests
 Everyday this year, between 1 and 4am an email from arxiv.org appeared in my inbox, with the title and abstract of every paper submitted the previous day in Artificial Intelligence, Computation and Language, Computers and Society, Human-Computer Interaction, Information Retrieval, Learning, Other Computer Science, Programming Languages, Software Engineering, Social and Information Networks.     
 
 

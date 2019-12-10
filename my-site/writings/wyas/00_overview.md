@@ -1,5 +1,6 @@
 ---
 title: Write You A Scheme, Version 2.0
+header: Write You A Scheme, Version 2.0
 date: November 28, 2016
 author: Adam Wespiser
 ---
@@ -79,10 +80,10 @@ If you use Haskell for work, your colleague's job will go a lot easier and less 
 
 ## Project Tool Chain
 
-What you need to run the project is in `Readme.md`, and if you are excited to start, skip to Chapter 1!
+What you need to run the project is in `README.md`, and if you are excited to start, skip to Chapter 1!
 
 Haskell is not an island unto itself, and we must manage the libraries required to build the project.
-I recommend using Ubuntu, version 14.04 or 16.04, (any Linux distribution should work, contact me if you have problems) and the build tool Stack. The library versions are determined for Stack in [scheme.cabal](https://github.com/write-you-a-scheme-v2/scheme/blob/master/scheme.cabal), while [stack.yaml](https://github.com/write-you-a-scheme-v2/scheme/blob/master/stack.yaml) is the version of Stack's dependency resolver, and [Build.hs](https://github.com/write-you-a-scheme-v2/scheme/blob/master/Build.hs) is Haskell code for generating documents from these markdown files. [More info on stack, here:]( https://www.fpcomplete.com/blog/2015/06/why-is-stack-not-cabal) The [Readme.md](https://github.com/write-you-a-scheme-v2/scheme/blob/master/Readme.md) contains full instructions on how to build the project source code and documentation, which I encourage you to do.
+I recommend using Ubuntu, version 14.04 or 16.04, (any Linux distribution should work, contact me if you have problems) and the build tool Stack. The library versions are determined for Stack in [scheme.cabal](https://github.com/write-you-a-scheme-v2/scheme/blob/master/scheme.cabal), while [stack.yaml](https://github.com/write-you-a-scheme-v2/scheme/blob/master/stack.yaml) is the version of Stack's dependency resolver, and [Build.hs](https://github.com/write-you-a-scheme-v2/scheme/blob/master/Build.hs) is Haskell code for generating documents from these markdown files. [More info on stack, here:]( https://www.fpcomplete.com/blog/2015/06/why-is-stack-not-cabal) The [README.md](https://github.com/write-you-a-scheme-v2/scheme/blob/master/README.md) contains full instructions on how to build the project source code and documentation, which I encourage you to do.
 The best way to learn is to modify, break, fix, and finally improve the source code. Two included scripts, [build](https://github.com/write-you-a-scheme-v2/scheme/blob/master/build) which will monitor for file changes then build upon updates, and [run](https://github.com/write-you-a-scheme-v2/scheme/blob/master/run), which will drop you into an interactive REPL, were invaluable in the development of this project.
 Please feel free to contact with me with any great ideas, modifications, improvements, or vaguely related but interesting concepts.
 I made this project for you, use it however you please.
@@ -123,7 +124,7 @@ If you are interested in building a typed language in Haskell, [this](http://okm
 Dynamic languages are not all doom and gloom: they give the user tremendous flexibility.  The R Programming Language is an excellent example of a dynamic language that excels at statistical computing by giving the user incredible flexibility and choice over how to implement ideas.
 
 A concept called Dynamic Dispatch allows functions to be determined, at runtime, by the types of the arguments passed in, so `(+ 1 1)` and `(+ "a" "b")` could use different versions of the `+` function.
-This is a key feature is dynamically typed programming languages, and we will be implementing this feature in our Scheme.
+This is a key feature in dynamically typed programming languages, and we will be implementing this feature in our Scheme.
 
 ## Interpreted
 We are building an interpreted language, an alternative to compiling to assembly language, LLVM or using a virtual machine like Java's JVM.
@@ -152,13 +153,13 @@ Both the right and left hand side of the form are represented with `LispVal`.
 ### List Processing
 There are three primitive functions for manipulating lists in our Scheme.
 We will implement them later as part of the standard library and discuss the tradeoffs.  
-`car`  ... `(car '(1 2 3))`  => `(1)`  
-`cadr` ... `(cadr '(1 2 3))` => `(2 3)`  
+`car`  ... `(car '(1 2 3))`  => `1`  
+`cdr` ... `(cdr '(1 2 3))` => `(2 3)`  
 `cons` ... `(cons 1 '(2 3))` => `(1 2 3)`  
 
 ### Mathematics
 Mathematical functions can take 2 or more arguments.  
-`(* 60 9)` => `69`  
+`(* 60 9)` => `540`  
 `(+ 10 30 2)` => `42`  
 
 ### Quote
@@ -195,7 +196,7 @@ It's not the most modern, but its complete enough to work.
 #### [Understanding Check]
 * What form does Scheme use to represent data? what about code?
 * How would you create a function in Scheme? How about set a variable?
-* If Scheme is a Dynamically-Typed Interpreted Functional Language? What does this make C, or your favorite programming language?
+* If Scheme is a Dynamically-Typed Interpreted Functional Language, what does this make C, or your favorite programming language?
 * Can you rearrange `let` expressions into `lambda`? What about `lambda` into `let`?
 * Write out an explanation and example that demonstrates lexical scope using a `lambda` expression.
 

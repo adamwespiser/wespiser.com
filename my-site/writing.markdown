@@ -1,5 +1,6 @@
 ---
-title: Writing
+title: Wespiser Blog, Writings
+header: Writing
 ---
      
 Here is a collection of my work and writings, examples which are larger than a single blog post.    
