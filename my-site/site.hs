@@ -109,7 +109,7 @@ main = hakyll $ do
             makeItem ""
                 >>= loadAndApplyTemplate "templates/sitemap.xml" siteMapCtx
 
-    create ["atom.xml"] $ do
+    create ["feed.atom"] $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
@@ -117,7 +117,7 @@ main = hakyll $ do
                 loadAllSnapshots "posts/*" "content"
             renderAtom myFeedConfiguration feedCtx posts
 
-    create ["rss.xml"] $ do
+    create ["feed.rss"] $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
