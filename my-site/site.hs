@@ -9,7 +9,23 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["img/*", "assets/*", "fonts/*", "resume.pdf", "robots.txt"]) $ do
+    match "img/*" $ do	
+        route   idRoute	
+        compile copyFileCompiler	
+    
+    match "fonts/*" $ do	
+        route   idRoute	
+        compile copyFileCompiler
+    
+    match "assets/*" $ do	
+        route   idRoute	
+        compile copyFileCompiler  
+
+    match "resume.pdf" $ do	
+        route   idRoute	
+        compile copyFileCompiler       
+    
+    match "robots.txt" $ do
         route idRoute
         compile copyFileCompiler
 
