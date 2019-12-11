@@ -6,7 +6,7 @@ date: December 11, 2019
 
 
 #### Summary
-- I built a library of of koans using the Julia programming language as part of a course project last semester!
+- I built a library of of koans using the Julia programming language as part of a course project last semester! You can [Run them on Colab here](https://colab.research.google.com/github/adamwespiser/deep-learning-koans/blob/colab)
 - The koans themselves are hosted on Jupyter Notebooks, and built from Julia source code with [Literate.jl](https://github.com/fredrikekre/Literate.jl)
 - [Flux.jl](https://github.com/FluxML/Flux.jl) is deep learning library I used
 - The koans are run locally, the [project Github repo is here](https://github.com/adamwespiser/deep-learning-koans)
