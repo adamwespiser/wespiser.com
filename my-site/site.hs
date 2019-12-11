@@ -5,27 +5,11 @@ import           Hakyll
 
 main :: IO ()
 main = hakyll $ do
-    match "img/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
 
-    match "assets/*" $ do
-        route idRoute
-        compile copyFileCompiler
-
-    match "fonts/*" $ do
-        route idRoute
-        compile copyFileCompiler
-
-    match "resume.pdf" $ do
-        route idRoute
-        compile copyFileCompiler
-
-    match "robots.txt" $ do
+    match (fromList ["img/*", "assets/*", "fonts/*", "resume.pdf", "robots.txt"]) $ do
         route idRoute
         compile copyFileCompiler
 
@@ -124,8 +108,6 @@ main = hakyll $ do
             posts <- fmap (take 10) . recentFirst =<<
                 loadAllSnapshots "posts/*" "content"
             renderRss myFeedConfiguration feedCtx posts
-
-
 
 
 --------------------------------------------------------------------------------
