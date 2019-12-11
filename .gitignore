@@ -1,8 +1,10 @@
+.DS_Store
 dist
 cabal-dev
 my-site/_cache
 my-site/_cache/
 my-site/_cache/*
+my-site/stack.yaml.lock
 my-site/templates/_cache/
 _site
 *.o
