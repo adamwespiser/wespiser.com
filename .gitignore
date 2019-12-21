@@ -20,4 +20,6 @@ cabal.sandbox.config
 *.prof
 *.aux
 *.hp
+*.swp
 .stack-work/
+dist-newstyle/
