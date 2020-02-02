@@ -9,22 +9,22 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match "img/*" $ do	
-        route   idRoute	
-        compile copyFileCompiler	
-    
-    match "fonts/*" $ do	
-        route   idRoute	
+    match "img/*" $ do
+        route   idRoute
         compile copyFileCompiler
-    
-    match "assets/*" $ do	
-        route   idRoute	
-        compile copyFileCompiler  
 
-    match "resume.pdf" $ do	
-        route   idRoute	
-        compile copyFileCompiler       
-    
+    match "fonts/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    match "assets/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    match "resume.pdf" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "robots.txt" $ do
         route idRoute
         compile copyFileCompiler
@@ -36,7 +36,7 @@ main = hakyll $ do
         compile $ pandocCompiler
              >>= loadAndApplyTemplate "templates/default.html" f404Ctx
              >>= relativizeUrls
-             
+
     match (fromList ["writing.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
@@ -97,8 +97,8 @@ main = hakyll $ do
     match "templates/*" $ compile templateCompiler
 
     create ["sitemap.xml"] $ do
-        route idRoute 
-        compile $ do 
+        route idRoute
+        compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             wyas  <- recentFirst =<< loadAll "writings/wyas/*"
             singlePages <- loadAll $ fromList ["archive.html", "writing.markdown"]
@@ -138,8 +138,8 @@ root = "http://www.wespiser.com"
 
 
 myFeedConfiguration :: FeedConfiguration
-myFeedConfiguration = FeedConfiguration
-    { feedTitle       = "Wespiser Blog: Feed"
+myFeedConfiguration = FeedConfiguration{
+      feedTitle       = "Wespiser Blog: Feed"
     , feedDescription = "This feed provides articles, hot off the presses, on a variety of technical topics."
     , feedAuthorName  = "Adam Wespiser"
     , feedAuthorEmail = "noemail"
