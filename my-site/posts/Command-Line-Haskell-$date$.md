@@ -1,7 +1,7 @@
 ---
 title: stack script: Compile and run Haskell with a single file
 header: A report about using the stack script interpreter to run single file haskell scripts
-date: Febuary 1, 2020
+date: February 1, 2020
 ---
 
 ## Introduction
