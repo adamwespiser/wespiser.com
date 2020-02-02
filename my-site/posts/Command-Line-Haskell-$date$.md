@@ -1,11 +1,11 @@
 ---
 title: stack script: Compile and run Haskell with a single file
-header: A report about using the stack script interpreter to run single file haskell scripts
+header: A report on stack script: the how and why...
 date: February 1, 2020
 ---
 
 ## Introduction
-#### Why 'stack script' ?
+#### Why stack script ?
 If you share small, single module, self contained haskell examples, stack script gives us an easy way to get reproducible builds, by pinning the dependencies to a Stackage snapshot within a comment at the top of your Haskell code.
 
 #### Intoduction 
