@@ -35,7 +35,6 @@ main = hakyll $ do
                                      `mappend` constField "header" ""
         compile $ pandocCompiler
              >>= loadAndApplyTemplate "templates/default.html" f404Ctx
-             >>= relativizeUrls
 
     match (fromList ["writing.markdown"]) $ do
         route   $ setExtension "html"
