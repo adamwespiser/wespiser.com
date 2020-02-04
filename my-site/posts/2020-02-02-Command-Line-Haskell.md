@@ -13,17 +13,17 @@ This post is about building Haskell source code within a single file using The H
 Stack is a build tool primarily designed for reproducible builds, done by specifying a resolver in a configuration file, usually your projects `stack.yaml` and `package.yaml`
 With Stack's scripting feature, we still get reproducible builds by specifying a resolver, but move this specification to the file we are compiling, or as a command line argument. 
 Therefore, for the sake of simplicity, we'll assume that these scripts are run outside of a stack project, and stack is invoked in the same directory as the script file.    
-When running a stack script inside of a stack project, it's important to consider that stack will read settings from your `project.yaml` and `stack.yaml`, which may cause issues.    
+*Note:* When running a stack script inside of a stack project, it's important to consider that stack will read settings from your `project.yaml` and `stack.yaml`, which may cause issues.    
 
-There are at least two additional motivations, besides reproducible builds, that you might want to use Stack's scripting feature:
- - Lower the configuration barrier: write an independently compiling Haskell source code file with package dependencies without having to configure a new stack or cabal project. Personally, I find this helpful when exploring new libraries or writing small programs. 
- - Using Haskell as a scripting language, or replacement for Shell/Bash/Zsh. This use case pairs well with the `Turtle` library, although this approach does have downsides. 
+There are at least two additional motivations, besides reproducible builds, that you might want to use Stack's scripting feature:    
+* Lower the configuration barrier: write an independently compiling Haskell source code file with package dependencies without having to configure a new stack or cabal project. Personally, I find this helpful when exploring new libraries or writing small programs.     
+* Using Haskell as a scripting language, or replacement for Shell/Bash/Zsh. This use case pairs well with the `Turtle` library, although this approach does have downsides.     
 
 This article contains the following examples of using scripting with stack:
- - A basic example
- - A simple Servant server that statically serves your current working directory
- - An example of a bash install script, and Haskell replacement that can be run as a cron job. 
- - Using stack script to launch ghci
+* A basic example
+* A simple Servant server that statically serves your current working directory
+* An example of a bash install script, and Haskell replacement that can be run as a cron job. 
+* Using stack script to launch ghci
 
 ## Stack Scripting Interpreter
 #### Intro
@@ -81,11 +81,11 @@ main = runSettings settings . serve (Proxy @Raw) $ serveDirectoryWebApp "."
 ```
 
 Noting a couple of features
- - `--install-ghc` is the flag to install ghc, if it is not already available.
- - The addition of the hash bang, (line 1), `#!/usr/bin/env stack`, let's you run this as an executable, `$ ./explore.hs`
- - If running, this script will let you see it's source code at `localhost:8080/static/explore.hs`, along with any other files within the current working directory the script was run.
- - The snapshot here is a nightly from the day the script was written, [nightly-2019-12-22](https://www.stackage.org/nightly-2019-12-22), which ensures the most up to date version of libraries are used when the script is written while still pinning us to a specific snapshot.
- - We pass in `-Wall` to ghc-options, and can give additional ghc options here.
+* `--install-ghc` is the flag to install ghc, if it is not already available.
+* The addition of the hash bang, (line 1), `#!/usr/bin/env stack`, let's you run this as an executable, `$ ./explore.hs`
+* If running, this script will let you see it's source code at `localhost:8080/static/explore.hs`, along with any other files within the current working directory the script was run.
+* The snapshot here is a nightly from the day the script was written, [nightly-2019-12-22](https://www.stackage.org/nightly-2019-12-22), which ensures the most up to date version of libraries are used when the script is written while still pinning us to a specific snapshot.
+* We pass in `-Wall` to ghc-options, and can give additional ghc options here.
 
 On a fresh compilation, this will take a few minutes to run, as Stack needs to go and grab about 255Mb worth of source code in ~86 dependent packages, compile and link it in order for the above code to run.
 However, on subsequent runs, Stack can use a local cache of of the packages, and we can reproduce our project build without downloading and building all the dependencies! 
@@ -106,9 +106,9 @@ To do this, we need the following at the top of our Haskell file:
 -}
 ```
 This stack script does a couple of things
- - `--compile` and `--copy-bins` create a binary executable based on the filename.    
- - installs ghc, if needed with `install-ghc`    
- - builds the scripts with the set of packages from `lts-14.17`    
+* `--compile` and `--copy-bins` create a binary executable based on the filename.    
+* installs ghc, if needed with `install-ghc`    
+* builds the scripts with the set of packages from `lts-14.17`    
 
 With [tutle](https://hackage.haskell.org/package/turtle), we get a portable way to to run external shell commands, 
 and I was able to create a nice haskell program to replace the shell script I used to automate the server tasks needed to deploy this blog!     
@@ -147,12 +147,12 @@ The following header will load the listed packages into a ghci repl:
  --install-ghc
  exec ghci
  --package "QuickCheck checkers"
-moduble XTest where
 -}
+moduble XTest where
 ```
 There is one note to make here about the order of the arguments: 
- - The file will compile, then drop you into with module `XTest` is loaded
- - If `exec ghci` does not imeadiately follow `stack`, then the `--packages` must be before `exec ghci`
+* The file will compile, then drop you into with module `XTest` is loaded
+* If `exec ghci` does not imeadiately follow `stack`, then the `--packages` must be before `exec ghci`
 
 ## Conclusion
 I often find myself coding up small Haskell snippets, whether it's playing around with a new ADT, trying out a library, or reproducing an example from a paper or a book. 
@@ -160,8 +160,8 @@ In these cases, Stack' scripting feature shines at giving me a self contained fi
 Thus, I would urge my fellow Haskellers to consider using stack's scripting feature when they share code online, to help others run their code today, and keep in runnable far into the future! 
 
 ## Additional Information
- - [Stack Docs: Script Interpreter](https://docs.haskellstack.org/en/stable/GUIDE/#script-interpreter)    
- - [FPComplete: How to Script with Stack](https://tech.fpcomplete.com/haskell/tutorial/stack-script)
- - [Hackage: Stack.Script](http://hackage.haskell.org/package/stack-1.9.3/docs/Stack-Script.html) Useful for figuring out what is going on underneath the hood!    
- - [Richard Odone: Scripting in Haskell and PureScript](https://odone.io/posts/2019-07-08-scripting-in-haskell-and-purescript.html)    
+* [Stack Docs: Script Interpreter](https://docs.haskellstack.org/en/stable/GUIDE/#script-interpreter)    
+* [FPComplete: How to Script with Stack](https://tech.fpcomplete.com/haskell/tutorial/stack-script)
+* [Hackage: Stack.Script](http://hackage.haskell.org/package/stack-1.9.3/docs/Stack-Script.html) Useful for figuring out what is going on underneath the hood!    
+* [Richard Odone: Scripting in Haskell and PureScript](https://odone.io/posts/2019-07-08-scripting-in-haskell-and-purescript.html)    
 
