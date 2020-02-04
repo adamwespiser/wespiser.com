@@ -1,7 +1,7 @@
 ---
 title: stack script: Compile and run Haskell with a single file
 header: A report on stack script: the how and why...
-date: February 1, 2020
+date: February 2, 2020
 ---
 
 ## Introduction
