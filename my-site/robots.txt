@@ -1,6 +1,6 @@
 # Group 1
 User-agent: *
-Disallow: info.html
+Disallow: /info.html
 
 # Group 2
 User-agent: *
