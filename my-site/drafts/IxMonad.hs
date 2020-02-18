@@ -8,6 +8,7 @@
            , RoleAnnotations
 #-}
 
+
 module IxMonadParser where
 
 import Control.Applicative (pure, (<$>))
@@ -59,6 +60,8 @@ Here we can see the transformation functions:
 For the sake of this demonstration, I just used coerce, or stubbed out a const function.
 -}
 
+
+-- IParser IO SourceCode Tokenized ()
 source2Toke :: SourceCode -> Tokenized
 source2Toke (SourceCode txt) = Tokenized [txt] -- can we coerce here as well?
 
@@ -77,7 +80,7 @@ syntax2Core = coerce -- "safe" newtype coerce
 
 {-
  Now, we need to derive all the types for our indexed monad.
- Credit to Stephen Diehl for providing a great starting point: 
+ Credit to Stephen Diehl for providing a great starting point:
    http://dev.stephendiehl.com/hask/#indexed-monads
 -}
 
@@ -92,13 +95,17 @@ execIParser st i = snd <$> runParser st i
 return :: (CM.Monad m) => a -> IParser m s s a
 return a = IParser $ \s -> CM.return (a, s)
 
+-- make it a functor instance
+-- convert to instance Functor, think about going with IParser i o m a
 fmap :: (CM.Monad m) => (a -> b) -> IParser m i o a -> IParser m i o b
 fmap f v = IParser $ \i ->
   runParser v i CM.>>= \(a', o') -> CM.return (f a', o')
 
+-- i -> o, o -> o' composition in the enriched category
 (>>=) :: (CM.Monad m) => IParser m i o a -> (a -> IParser m o o' b) -> IParser m i o' b
 (>>=) v f = IParser $ \i -> runParser v i CM.>>= \(a', o') -> runParser (f a') o'
 
+-- erase a/b same as composition!
 (>>) :: (CM.Monad m) => IParser m i c a -> IParser m c o b -> IParser m i o b
 v >> w = v >>= \_ ->  w
 
@@ -120,10 +127,11 @@ get = IParser $ \x -> CM.return (x, x)
 gets :: CM.Monad m => (a -> o) -> IParser m a o a
 gets f = IParser $ \s -> CM.return (s, f s)
 
+      -- IxMonad
 run :: IParser IO SourceCode Core ()
 run = do                             -- XXX check all of these types with type holes
   toke <- gets source2Toke           -- :: IParser IO SourceCode Tokenized ()
-  liftIO $ putStrLn "inside IxMonad" -- :: IParser IO Tokenized Tokenized () 
+  liftIO $ putStrLn "inside IxMonad" -- :: IParser IO Tokenized Tokenized ()
   syn <- gets toke2Syntax            -- :: IParser IO Tokenized Syntax ()
   modify syntax2Core                 -- :: IParser IO Syntax Core ()
 
@@ -139,4 +147,12 @@ main = do
  - 3. Rename IParser to IxMonad
  -   3.1 add section on IxMonad isomorphism to Parser/StateT
  -   3.2 motivate inclusion of m into IxMonad, (liftIO, Ghc, et cetera)
- -}
+ - 4. check which bind is used
+ - 5. state, contT ix monad transformer
+ - 6. IxMonads: enriched category in the monoidal category of endofunctor
+ - session(state with phantom state), state -> uses
+ - http://www.ccs.northeastern.edu/home/tov/pubs/haskell-session-types/session08.pdf
+ - https://github.com/morphismtech/squeal/blob/dev/squeal-postgresql/src/Squeal/PostgreSQL/PQ/Indexed.hs
+ - https://mail.haskell.org/pipermail/haskell-cafe/2004-July/006448.html
+ - https://hackage.haskell.org/package/ixdopp
+-}
