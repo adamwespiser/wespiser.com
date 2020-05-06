@@ -3,8 +3,10 @@
  -}
 {-# Language RebindableSyntax
            , ScopedTypeVariables
+           , FlexibleInstances
            , NoMonomorphismRestriction
            , OverloadedStrings
+           , InstanceSigs
            , RoleAnnotations
 #-}
 
@@ -12,6 +14,8 @@
 module IxMonadParser where
 
 import Control.Applicative (pure, (<$>))
+import Control.Monad.Trans.Class (MonadTrans(..))
+import qualified Control.Monad.IO.Class as CM
 import qualified Control.Monad as CM
 import Data.Coerce (Coercible, coerce)
 import Data.Function (($), (.))
@@ -61,7 +65,7 @@ For the sake of this demonstration, I just used coerce, or stubbed out a const f
 -}
 
 
--- IParser IO SourceCode Tokenized ()
+-- IxMonadT IO SourceCode Tokenized ()
 source2Toke :: SourceCode -> Tokenized
 source2Toke (SourceCode txt) = Tokenized [txt] -- can we coerce here as well?
 
@@ -84,75 +88,82 @@ syntax2Core = coerce -- "safe" newtype coerce
    http://dev.stephendiehl.com/hask/#indexed-monads
 -}
 
-newtype IParser m i o a = IParser { runParser :: i -> m (a, o) }
+newtype IxMonadT i o m a = IxMonadT { runIx :: i -> m (a, o) }
 
-evalIParser :: (CM.Functor m) => IParser m i o a -> i -> m a
-evalIParser st i = fst <$> runParser st i
+evalIxMonadT :: (CM.Functor m) => IxMonadT i o m a -> i -> m a
+evalIxMonadT st i = fst <$> runIx st i
 
-execIParser :: (CM.Functor m) => IParser m i o a -> i -> m o
-execIParser st i = snd <$> runParser st i
+execIxMonadT :: (CM.Functor m) => IxMonadT i o m a -> i -> m o
+execIxMonadT st i = snd <$> runIx st i
 
-return :: (CM.Monad m) => a -> IParser m s s a
-return a = IParser $ \s -> CM.return (a, s)
-
--- make it a functor instance
--- convert to instance Functor, think about going with IParser i o m a
-fmap :: (CM.Monad m) => (a -> b) -> IParser m i o a -> IParser m i o b
-fmap f v = IParser $ \i ->
-  runParser v i CM.>>= \(a', o') -> CM.return (f a', o')
+return :: (CM.Monad m) => a -> IxMonadT s s m a
+return a = IxMonadT $ \s -> CM.return (a, s)
 
 -- i -> o, o -> o' composition in the enriched category
-(>>=) :: (CM.Monad m) => IParser m i o a -> (a -> IParser m o o' b) -> IParser m i o' b
-(>>=) v f = IParser $ \i -> runParser v i CM.>>= \(a', o') -> runParser (f a') o'
+(>>=) :: (CM.Monad m) => IxMonadT i c m a -> (a -> IxMonadT c o m b) -> IxMonadT i o m b
+(>>=) v f = IxMonadT $ \i -> runIx v i CM.>>= \(a', o') -> runIx (f a') o'
 
 -- erase a/b same as composition!
-(>>) :: (CM.Monad m) => IParser m i c a -> IParser m c o b -> IParser m i o b
+(>>) :: (CM.Monad m) => IxMonadT i c m a -> IxMonadT c o m b -> IxMonadT i o m b
 v >> w = v >>= \_ ->  w
 
-lift :: (CM.Monad m) => m a -> IParser m s s a
-lift ma = IParser $ \s -> ma CM.>>= (\a -> CM.return (a, s))
+instance MonadTrans (IxMonadT s s) where
+  lift :: (CM.Monad m) => m a -> IxMonadT s s m a
+  lift ma = IxMonadT $ \s -> ma CM.>>= (\a -> CM.return (a, s))
 
-liftIO :: IO a -> IParser IO s s a
-liftIO ma = IParser $ \s -> ma CM.>>= (\a -> CM.return (a, s))
+liftIO :: CM.MonadIO m => IO a -> IxMonadT s s m a
+liftIO = lift . CM.liftIO
 
-put :: (CM.Monad m) =>  o -> IParser m i o ()
-put o = IParser $ \_ -> CM.return ((), o)
+put :: (CM.Monad m) =>  o -> IxMonadT i o m ()
+put o = IxMonadT $ \_ -> CM.return ((), o)
 
-modify :: (CM.Monad m) => (i -> o) -> IParser m  i o ()
-modify f = IParser $ \i -> CM.return ((), f i)
+modify :: (CM.Monad m) => (i -> o) -> IxMonadT  i o m ()
+modify f = IxMonadT $ \i -> CM.return ((), f i)
 
-get :: CM.Monad m => IParser m s s s
-get = IParser $ \x -> CM.return (x, x)
+get :: CM.Monad m => IxMonadT s s m s
+get = IxMonadT $ \x -> CM.return (x, x)
 
-gets :: CM.Monad m => (a -> o) -> IParser m a o a
-gets f = IParser $ \s -> CM.return (s, f s)
+gets :: CM.Monad m => (a -> o) -> IxMonadT a o m a
+gets f = IxMonadT $ \s -> CM.return (s, f s)
+--
+-- make it a functor instance
+-- convert to instance Functor, think about going with IxMonadT i o m a
+instance (CM.Monad m) => CM.Functor (IxMonadT i o m) where
+  fmap :: (CM.Monad m) => (a -> b) -> IxMonadT i o m a -> IxMonadT i o m b
+  fmap f v = IxMonadT $ \i ->
+    runIx v i CM.>>= \(a', o') -> CM.return (f a', o')
 
       -- IxMonad
-run :: IParser IO SourceCode Core ()
+run :: IxMonadT SourceCode Core IO Core
 run = do                             -- XXX check all of these types with type holes
-  toke <- gets source2Toke           -- :: IParser IO SourceCode Tokenized ()
-  liftIO $ putStrLn "inside IxMonad" -- :: IParser IO Tokenized Tokenized ()
-  syn <- gets toke2Syntax            -- :: IParser IO Tokenized Syntax ()
-  modify syntax2Core                 -- :: IParser IO Syntax Core ()
+  toke <- gets source2Toke           -- :: IxMonadT IO SourceCode Tokenized ()
+  liftIO $ putStrLn "inside IxMonad" -- :: IxMonadT IO Tokenized Tokenized ()
+  syn <- gets toke2Syntax            -- :: IxMonadT IO Tokenized Syntax ()
+  modify syntax2Core                 -- :: IxMonadT IO Syntax Core ()
+  result <- get                      -- :: IxMonadT Syntax Core IO Core
+                                     --    with get we can manipulate the value of the transformation
+  liftIO $ print result              -- :: IxMonadT Syntax Core IO Core
+  return result                      -- :: IxMonadT SourceCode Core IO Core -- (final type)
 
 main :: IO ()
 main = do
   let srcCode = SourceCode "here is my source code"
-   in  execIParser run srcCode CM.>>= \core -> print core
+   in execIxMonadT run srcCode CM.>> print "done"
 
 {- additional comments:
- - 1. about imports, rebindable do syntax
- - 2. use of "gets source2Toke", "gets toke2Syntax" to create parsers
+ x 1. about imports, rebindable do syntax
+ x 2. use of "gets source2Toke", "gets toke2Syntax" to create parsers
  -   2.1 maybe create these parsers/ixmonads explicitly to better make the point?
- - 3. Rename IParser to IxMonad
+ - 3. Rename IxMonadT to IxMonad
  -   3.1 add section on IxMonad isomorphism to Parser/StateT
  -   3.2 motivate inclusion of m into IxMonad, (liftIO, Ghc, et cetera)
- - 4. check which bind is used
+ x 4. check which bind is used
  - 5. state, contT ix monad transformer
  - 6. IxMonads: enriched category in the monoidal category of endofunctor
  - session(state with phantom state), state -> uses
- - http://www.ccs.northeastern.edu/home/tov/pubs/haskell-session-types/session08.pdf
- - https://github.com/morphismtech/squeal/blob/dev/squeal-postgresql/src/Squeal/PostgreSQL/PQ/Indexed.hs
- - https://mail.haskell.org/pipermail/haskell-cafe/2004-July/006448.html
- - https://hackage.haskell.org/package/ixdopp
+  http://www.ccs.northeastern.edu/home/tov/pubs/haskell-session-types/session08.pdf
+  https://github.com/morphismtech/squeal/blob/dev/squeal-postgresql/src/Squeal/PostgreSQL/PQ/Indexed.hs
+  https://mail.haskell.org/pipermail/haskell-cafe/2004-July/006448.html
+  https://hackage.haskell.org/package/ixdopp
+  https://github.com/ocharles/json-assertions/blob/master/src/Test/JSON/Assertions.hs
 -}
