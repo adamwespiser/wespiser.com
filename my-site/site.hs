@@ -32,7 +32,7 @@ main = hakyll $ do
     match (fromList ["404.html", "info.html"]) $ do
         route idRoute
         let f404Ctx = defaultContext `mappend` constField "title" "Wespiser Blog"
-                                     `mappend` constField "header" ""
+                                     `mappend` constField "header" "Contact Me!"
         compile $ pandocCompiler
              >>= loadAndApplyTemplate "templates/default.html" f404Ctx
 
@@ -66,9 +66,9 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let archiveCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Wespiser Blog: Archives"  `mappend`
-                    constField "header" "Archives"           `mappend`
+                    listField "posts"   postCtx (return posts) `mappend`
+                    constField "title"  "Wespiser Blog"        `mappend`
+                    constField "header" "Archived articles"    `mappend`
                     defaultContext
 
             makeItem ""
@@ -82,9 +82,9 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Wespiser Blog: My Technical Writings" `mappend`
-                    constField "header" ""                   `mappend`
+                    listField "posts" postCtx (return posts)    `mappend`
+                    constField "title"  "Wespiser Blog"         `mappend`
+                    constField "header" "My Technical Writings" `mappend`
                     defaultContext
 
             getResourceBody
