@@ -32,7 +32,7 @@ main = hakyll $ do
     match (fromList ["404.html", "info.html"]) $ do
         route idRoute
         let f404Ctx = defaultContext `mappend` constField "title" "Wespiser Blog"
-                                     `mappend` constField "header" "Contact Me!"
+                                     `mappend` constField "header" "Personal Information"
         compile $ pandocCompiler
              >>= loadAndApplyTemplate "templates/default.html" f404Ctx
 
