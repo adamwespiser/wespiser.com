@@ -95,7 +95,7 @@ However, on subsequent runs, Stack can use a local cache of of the packages, and
 
 
 #### Stack Script as a Bash Replacement
-It's possible to use haskell, and Stack scripting feature, along with the Turtle library as a drop in replacement for sshell scripting!     
+It's possible to use haskell, and Stack scripting feature, along with the Turtle library as a drop in replacement for shell scripting!     
 To do this, we need the following at the top of our Haskell file:    
 ```
 #!/usr/bin/env stack
@@ -110,7 +110,7 @@ To do this, we need the following at the top of our Haskell file:
 ```
 This stack script does a couple of things:
 
-* `--compile` and `--copy-bins` create a binary executable based on the filename.    
+* `--compile` and `--copy-bins` create a binary executable based on the file name.    
 * installs ghc, if needed with `install-ghc`    
 * builds the scripts with the set of packages from `lts-14.17`    
 
@@ -134,11 +134,11 @@ main = do
   destinationDir <- Tu.options "Build blog and copy to directory" argParser
   Tu.with (Tu.mktempdir "/tmp" "deploy") (mainLoop destinationDir)
 ```
-One nice thing about turtle is the `Tu.with` function, which lets use run our the main logic of our program with a tmp directory which is subsequently cleaned up after the `mainLoop` function returns.    
+One nice thing about turtle is the `Tu.with` function, which lets use run our the main logic of our program with a temporary directory which is subsequently cleaned up after the `mainLoop` function returns.    
 Despite turtle being a handy library, I did find some downsides
  - Use of `FilePath`, which uses a pretty clunky, `String` based file representation
  - Often times clunkier semantics than just writing bash: for instance, `cp -r SRC TRG` is requires a fold over the result of `ls SRC` and construction of an explicit `cp`  with each file, instead, you need to use `cptree`, which took me a while to figure out, so it would be nice if the semantics matched better!
- - Turtle is a monolithic framework for interacting with OS through a set of mirroed shell commands trying to match `coreutiles`, and it's tighlty couple parts makes it not very easy to pick the parts you like, and disregard the rest!
+ - Turtle is a monolithic framework for interacting with OS through a set of mirrored shell commands trying to match `coreutiles`, and it's tightly couple parts makes it not very easy to pick the parts you like, and disregard the rest!
 
 #### Using stack script to run ghci
 We've already seen a few examples of stack script, but there is one more that should be in every Haskeller's toolkit.
@@ -152,17 +152,23 @@ The following header will load the listed packages into a ghci repl:
  exec ghci
  --package "QuickCheck checkers"
 -}
-moduble XTest where
+module XTest where
 ```
 There is one note to make here about the order of the arguments: 
 
 * The file will compile, then drop you into with module `XTest` is loaded
-* If `exec ghci` does not imeadiately follow `stack`, then the `--packages` must be before `exec ghci`
+* If `exec ghci` does not immediately follow `stack`, then the `--packages` must be before `exec ghci`
+
+##### ghcid
+You can run the above stack script with [ghcid](https://github.com/ndmitchell/ghcid) to get nearly instant compiler feedback using the following:
+```
+bash$ ghcid -c "stack XTest.hs"
+```
 
 ## Conclusion
-I often find myself coding up small Haskell snippets, whether it's playing around with a new ADT, trying out a library, or reproducing an example from a paper or a book. 
+I often find myself coding up small Haskell snippets, whether it's playing around with a new data type, trying out a library, or reproducing an example from a paper or a book. 
 In these cases, Stack' scripting feature shines at giving me a self contained file where I can specify the dependencies via a snapshot in the file header, and not have to worry about breaking changes, or setting up a project with all the correct dependencies. 
-Thus, I would urge my fellow Haskellers to consider using stack's scripting feature when they share code online, to help others run their code today, and keep in runnable far into the future! 
+Thus, I would urge my fellow Haskellers to consider using stack's scripting feature when they share code online, to help others run their code today, and keep that way far into the future! 
 
 ## Additional Information
 
