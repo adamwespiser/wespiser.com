@@ -13,7 +13,7 @@ date: January 3, 2021
 
 # This post
 I'm writing this post as a collection of my thoughts on the last year, and a reflection on the major things I've learned.    
-The majority of my Haskell experience is in the form of writing code for webservers that talk to databases serve up APIs, although I am very interested in compilers and language research!    
+The majority of my Haskell experience is in the form of writing code for web servers that talk to databases serve up APIs, although I am very interested in compilers and language research!    
 
 ## Outline
 
@@ -31,8 +31,8 @@ Not every project you engage in will focus on code quality, but working at a com
     
 One of the best exercises I had this year was going through my PRs and consolidating all the comments by theme, which taught me as much about my own code as what other people think about code in general.    
     
-An important perspective when writing code, is understanding how that software will exist through time, what demands will be placed on it, and how the fundemental assumptions will inevitably change.
-A big lesson for me this year is learning that a system can start out well, but through product mis-alignment, tight time constraints, and feature expansion, it can become an irreplacable web of sadness littered through your codebase too costly to remove!    
+An important perspective when writing code, is understanding how that software will exist through time, what demands will be placed on it, and how the fundamental assumptions will inevitably change.
+A big lesson for me this year is learning that a system can start out well, but through product mis-alignment, tight time constraints, and feature expansion, it can become an irreplaceable web of sadness littered through your code base too costly to remove!    
     
 On a psychological note, through trial and error I realized I only have so many "high performance" hours in a week where you can be sustainably productive without lowering the quality of the hours you work.
 Some corporations have even found workers are even more productive with 3 day weeks versus 5!
@@ -74,7 +74,7 @@ I'd like to add that the overwhelming majority of effects I've seen have been ha
 A theme for this year for me was exploring the intersection between type level programming and good software engineering practices.
 It's one thing to know Haskell, it's another to beautiful code that's as easy to understand as it is to maintain.
 As a prior, my stance on new, complex Haskell features is to "write junior code".
-However, given a sufficiently experieced team familiar with type level programming, the tradeoffs the the features themselves can be evaluated per se...    
+However, given a sufficiently experienced team familiar with type level programming, the trade-offs of the features themselves can be evaluated per se...    
 
 ### Haskell Type Level Solutions Worth Their Weight
 
@@ -85,14 +85,14 @@ However, given a sufficiently experieced team familiar with type level programmi
 
 ### Haskell Type Level programming ideas I've unsuccessfully tried to apply, but am holding out hope for...
 
-* **Type level witnesses**: although they did in fact work for a specific problem, getting kind constraints to play nicely with associated libraries turned out harder than I imagined, and I'm not 100% convinced the added complexity if worth the effort.    
-* **GADTs**: Know the type for each individual data constructor? Sounds good! I just haven't had a problem where this is exactly what I've needed, versus taking a different approach.    
-* **Existensial Types**. They sort of work, but there is a bug that prevents generic deriving from "just working" reasonably in the last situation I tried them, and I'd rather just user an alternative approach, like a smart constructor, then write my own generic instance. [GHC bug report](https://gitlab.haskell.org/ghc/ghc/-/issues/10514).     
+* **Type level witnesses**: although they did work for a specific problem, getting kind constraints to play nicely with associated libraries turned out harder than I imagined, and I'm not 100% convinced the added complexity if worth the effort.    
+* **GADTs**: Know the type for each individual data constructor? Sounds good! I just haven't had a problem where this is exactly what I've needed.    
+* **Existensial Types**: There is a bug that prevents generic deriving from "just working" reasonably in the last situation I tried them, and I'd rather just user an alternative approach, like a smart constructor, over writing my own generic instance. [GHC bug report](https://gitlab.haskell.org/ghc/ghc/-/issues/10514).     
 
 ## Build Systems
-I'm not sure what else to say here, other than build systems in Haskell leave somthing to be desired!    
+I'm not sure what else to say here, other than build systems in Haskell leave something to be desired!    
 Stack works, but doesn't cache well, and there's the dreaded `flat namespace error` and other build errors that sometimes are most easily fixed by manually removing the offending library, or worst case removing your `.stack` directories.    
-Alternatively, Nix is an efficient and robust build system, but is really complicated, and takes a non-trivial amount of time to learn, and requires an "expert" if you're going to use that for your CI build system.
+Alternatively, Nix is an efficient and robust build system, but is really complicated, and takes a non-trivial amount of time to learn and set up if you're going to use that for your CI build system.
 I want to learn Nix and use it for personal projects, it's just a question of priorities, and figuring out how to get it to work with `ghcid`.    
 In 2021, I should really try `cabal` :)    
 
@@ -101,16 +101,16 @@ The Haskell development environment has really improved over the last fews years
 
 * iTerm2 on MacOS, using `tmux` as a window/panel manager.    
 * `neovim` as my version of `vim` for writing code.    
-* `hasktags` to "jump to definition" with `vim` shortcuts. Not perfect with `OverladedLabels` and a large codebase, but good enough!    
+* `hasktags` to "jump to definition" with `vim` shortcuts. Not perfect with `OverladedLabels` and a large code base, but good enough!    
 * `hoogle` command line utility to search for function types or package sources.    
 * [Hackage](https://hackage.haskell.org/) online to browse docs. (press 's' on a package page to open a search prompt).    
-* A variety of tools using `fzf` for searching within and for files, and browsings git diffs and commits.    
+* A variety of tools using `fzf` for searching within and for files, and browsing git diffs and commits.    
 * [Serokell's Regex Hackage Search](https://hackage-search.serokell.io/) which just came out, but something I think could be very useful for arbitrary searches over Hackage!    
 * `ghcid` is pretty amazing, and I'm not sure how I wrote Haskell without it! It gives fast incremental recompilation, and can be configured to run a test suite or bash command on completion.    
 
-The haskell development environment is getting better all the time, and although I've set up Haskell Language Server a few times for small side projects, I haven't taken the time to try it on a larger codebase, despite the extremely helpful project devs!    
+The haskell development environment is getting better all the time, and although I've set up Haskell Language Server a few times for small side projects, I haven't taken the time to try it on a larger code base, despite the extremely helpful project devs!    
 
-The room for growth here would be to consolidate the different search interfaces (hackage, regex on hackage, local search, jump to definition, et cetera), to create a utility that jumps to definition or docs given what's in scope for a given module or even project.   
+My ideal tool, would be something that consolidates the different search interfaces (hackage, regex on hackage, local search, jump to definition, et cetera), to create a utility that jumps to definition or docs given what's in scope for a given module or even project.   
 
 
 ## The Year In Readings
