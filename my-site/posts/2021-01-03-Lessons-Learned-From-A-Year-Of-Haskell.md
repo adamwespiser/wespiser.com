@@ -133,7 +133,8 @@ Articles and projects by my co-workers...
 * [Enhancing Functor Structure Step-By-Step](https://blog.jle.im/entry/enhancing-functor-structures-step-by-step-1.html) Just Le walks through the "functor structure" programming style, using a specific example, and is a good introduction to his [Functor Combinatorpedia](https://blog.jle.im/entry/functor-combinatorpedia.html)    
 * [When threadWaitRead Doesn't](http://jfischoff.github.io/blog/when-threadwaitread-doesnt.html) Is a deep dive into Haskell IO by Jonathan Fishoff, who tells the story of debugging a network connection issue.    
 * [Commander-cli](https://github.com/SamuelSchlesinger/commander-cli) Sam Schleschesinger's type directed approach to parsing command line arguments.     
-* [Capturing the magic of Prelude.interact](http://gelisam.blogspot.com/2020/12/capturing-magic-of-preludeinteract.html) Is an analysis of `Prelude.interact` by gelisam, with an eye towards the important interaction between pure and `IO` bound code.
+* [Capturing the magic of Prelude.interact](http://gelisam.blogspot.com/2020/12/capturing-magic-of-preludeinteract.html) Is an analysis of `Prelude.interact` by gelisam, with an eye towards the important interaction between pure and `IO` bound code.    
+* [crdt-event-fold](https://hackage.haskell.org/package/crdt-event-fold-1.4.0.0/docs/Data-CRDT-EventFold.html) CRDTs are a fascinating idea for managing conflict-free operations over distributed systems, and Rick Owens provides a well engineered Haskell implementation with excellent docs!    
 
 ## In Summary
 
