@@ -78,7 +78,7 @@ However, given a sufficiently experienced team familiar with type level programm
 
 ### Haskell Type Level Solutions Worth Their Weight
 
-* [squeal](https://hackage.haskell.org/package/squeal-postgresql), takes a while to learn, but with generated schemas helping write some code, a deep embedding tied to the schema is very maintainable. A key aspect of getting this solution to work is to have a repeatable way to generate the same schema that's used in production. Ours is ([squalgen](https://github.com/mwotton/squealgen)), which works great!     
+* [squeal](https://hackage.haskell.org/package/squeal-postgresql), takes a while to learn, but with generated schemas helping write some code, a deep embedding tied to the schema is very maintainable. A key aspect of getting this solution to work is to have a repeatable way to generate the same schema that's used in production. Ours is ([squealgen](https://github.com/mwotton/squealgen)), which works great!     
 * [generic-lens](https://hackage.haskell.org/package/generic-lens). For a long time, I avoided lens, but with `DuplicateRecordFields` and `OverloadedLabels` `generic-lens` provides some great utilities beyond lens/prism for manipulating structures that I've come to rely on.    
 * [servant](https://hackage.haskell.org/package/servant) great for defining routes for clients/servers, and even the streaming stuff can work!    
 * [DerivingVia](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/deriving_via.html), very useful way to extend newtypes and generic deriving, and gives you a way to write a lot of maintainable code in a few short lines.   
