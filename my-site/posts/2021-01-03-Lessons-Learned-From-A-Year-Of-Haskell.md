@@ -66,13 +66,13 @@ Based on my experience, answers the following questions will vary from project t
 * What's the testing strategy, is a fuzziness generator used?    
 * How do you run the tests locally, given the architecture?    
 
-By the [Expression Problem](https://en.wikipedia.org/wiki/Expression_problem) I really mean what typeclasses are need to be derived or defined, like `ToJSON` or serialization.
+By the [Expression Problem](https://en.wikipedia.org/wiki/Expression_problem) I mean which typeclasses are needed to be derived or defined, like `ToJSON` or serialization.
 I'd like to add that the overwhelming majority of effects I've seen have been handled using [mtl](https://hackage.haskell.org/package/mtl) and/or `IO`, but we appear to be close on extensible effects, and the word done on [eff](https://github.com/hasura/eff) looks promising!    
 
 ## Musings On Type Level Programming
 
 A theme for this year for me was exploring the intersection between type level programming and good software engineering practices.
-It's one thing to know Haskell, it's another to beautiful code that's as easy to understand as it is to maintain.
+It's one thing to know Haskell, it's another to write beautiful code that's as easy to understand as it is to maintain.
 As a prior, my stance on new, complex Haskell features is to "write junior code".
 However, given a sufficiently experienced team familiar with type level programming, the trade-offs of the features themselves can be evaluated per se...    
 
@@ -87,7 +87,7 @@ However, given a sufficiently experienced team familiar with type level programm
 
 * **Type level witnesses**: although they did work for a specific problem, getting kind constraints to play nicely with associated libraries turned out harder than I imagined, and I'm not 100% convinced the added complexity if worth the effort.    
 * **GADTs**: Know the type for each individual data constructor? Sounds good! I just haven't had a problem where this is exactly what I've needed.    
-* **Existensial Types**: There is a bug that prevents generic deriving from "just working" reasonably in the last situation I tried them, and I'd rather just user an alternative approach, like a smart constructor, over writing my own generic instance. [GHC bug report](https://gitlab.haskell.org/ghc/ghc/-/issues/10514).     
+* **Existensial Types**: There is a bug that prevents generic deriving from "just working" reasonably in the last situation I tried them, and I'd rather just use an alternative approach, like a smart constructor, over writing my own generic instance. [GHC bug report](https://gitlab.haskell.org/ghc/ghc/-/issues/10514).     
 
 ## Build Systems
 I'm not sure what else to say here, other than build systems in Haskell leave something to be desired!    
@@ -97,7 +97,8 @@ I want to learn Nix and use it for personal projects, it's just a question of pr
 In 2021, I should really try `cabal` :)    
 
 ### My development environment
-The Haskell development environment has really improved over the last fews years, here's what I settled on using over the course of last year:    
+
+The Haskell development environment has really improved over the last few years, and here's the setup I eventually settled on:    
 
 * iTerm2 on MacOS, using `tmux` as a window/panel manager.    
 * `neovim` as my version of `vim` for writing code.    
@@ -140,4 +141,4 @@ Articles and projects by my co-workers...
 
 2020 was stressful year that forced us to question many of the systems and institutions around us, including the Haskell ecosystem, it's funding, and future direction. We celebrated the release of [ghc 9.0.1](https://www.haskell.org/ghc/blog/20201229-ghc-9.0.1-rc1-released.html) a major milestone, and look forward to the formation of the [Haskell Foundation](https://haskell.foundation/)    
 It's my sincere hope the Haskell ecosystem can continue development through means that are parsimonious and beneficial for society.
-Further, I hope 2021 is a year in which Haskell continues it's improvements as a stellar industrial programming language, and the lessons learned over it's first 30 years can be used.    
+Further, I hope 2021 is a year in which Haskell continues it's improvements as a stellar industrial programming language, and the lessons learned over it's first 30 years can be used to further programming language development for years to come!    
