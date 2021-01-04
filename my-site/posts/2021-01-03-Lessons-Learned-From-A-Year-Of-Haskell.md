@@ -67,7 +67,7 @@ Based on my experience, answers the following questions will vary from project t
 * How do you run the tests locally, given the architecture?    
 
 By the [Expression Problem](https://en.wikipedia.org/wiki/Expression_problem) I mean which typeclasses are needed to be derived or defined, like `ToJSON` or serialization.
-I'd like to add that the overwhelming majority of effects I've seen have been handled using [mtl](https://hackage.haskell.org/package/mtl) and/or `IO`, but we appear to be close on extensible effects, and the word done on [eff](https://github.com/hasura/eff) looks promising!    
+I'd like to add that the overwhelming majority of effects I've seen have been handled using [mtl](https://hackage.haskell.org/package/mtl) and/or `IO`, but we appear to be close on extensible effects, and the work done on [eff](https://github.com/hasura/eff) looks promising!    
 
 ## Musings On Type Level Programming
 
@@ -79,7 +79,7 @@ However, given a sufficiently experienced team familiar with type level programm
 ### Haskell Type Level Solutions Worth Their Weight
 
 * [squeal](https://hackage.haskell.org/package/squeal-postgresql), takes a while to learn, but with generated schemas helping write some code, a deep embedding tied to the schema is very maintainable. A key aspect of getting this solution to work is to have a repeatable way to generate the same schema that's used in production. Ours is ([squealgen](https://github.com/mwotton/squealgen)), which works great!     
-* [generic-lens](https://hackage.haskell.org/package/generic-lens). For a long time, I avoided lens, but with `DuplicateRecordFields` and `OverloadedLabels` `generic-lens` provides some great utilities beyond lens/prism for manipulating structures that I've come to rely on.    
+* [generic-lens](https://hackage.haskell.org/package/generic-lens). For a long time, I avoided lenses, but with `DuplicateRecordFields` and `OverloadedLabels` `generic-lens` provides some great utilities beyond lens/prism for manipulating structures that I've come to rely on.    
 * [servant](https://hackage.haskell.org/package/servant) great for defining routes for clients/servers, and even the streaming stuff can work!    
 * [DerivingVia](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/deriving_via.html), very useful way to extend newtypes and generic deriving, and gives you a way to write a lot of maintainable code in a few short lines.   
 
@@ -91,7 +91,7 @@ However, given a sufficiently experienced team familiar with type level programm
 
 ## Build Systems
 I'm not sure what else to say here, other than build systems in Haskell leave something to be desired!    
-Stack works, but doesn't cache well, and there's the dreaded `flat namespace error` and other build errors that sometimes are most easily fixed by manually removing the offending library, or worst case removing your `.stack` directories.    
+Stack works, but doesn't cache well, and there's the dreaded `flat namespace error` and related errors that sometimes are most easily fixed by manually removing the offending library, or worst case removing your `.stack` directories.    
 Alternatively, Nix is an efficient and robust build system, but is really complicated, and takes a non-trivial amount of time to learn and set up if you're going to use that for your CI build system.
 I want to learn Nix and use it for personal projects, it's just a question of priorities, and figuring out how to get it to work with `ghcid`.    
 In 2021, I should really try `cabal` :)    
@@ -102,8 +102,8 @@ The Haskell development environment has really improved over the last few years,
 
 * iTerm2 on MacOS, using `tmux` as a window/panel manager.    
 * `neovim` as my version of `vim` for writing code.    
-* `hasktags` to "jump to definition" with `vim` shortcuts. Not perfect with `OverladedLabels` and a large code base, but good enough!    
-* `hoogle` command line utility to search for function types or package sources.    
+* `hasktags` to "jump to definition" with `vim` shortcuts. Not perfect with `OverladedLabels` within a large code base, but good enough!    
+* `hoogle` command line utility to search for polymorphic function types or package sources.    
 * [Hackage](https://hackage.haskell.org/) online to browse docs. (press 's' on a package page to open a search prompt).    
 * A variety of tools using `fzf` for searching within and for files, and browsing git diffs and commits.    
 * [Serokell's Regex Hackage Search](https://hackage-search.serokell.io/) which just came out, but something I think could be very useful for arbitrary searches over Hackage!    
@@ -123,7 +123,7 @@ Here's a sampling of the "essential" articles I came across in 2020.
 * [Micro C](https://blog.josephmorag.com/posts/mcc0/) A Micro C compiler written in Haskell. A nice little compiler project!    
 * [Type Witnesses In Haskell](https://serokell.io/blog/haskell-type-level-witness) Is a great write up by Sandeep Chandrika explaining type witnesses, and how to use them to ensure illegal state are not representable!    
 * [GHC illustrated for hardware persons](http://takenobu-hs.github.io/downloads/haskell_ghc_illustrated.pdf) is an architectural diagram of the ghc backend, and includes information on exactly how ghc is able to run a lazy functional language on stock hardware. Useful if you are curious how certain things are implemented on the backend!    
-* [Names are not type safety](https://lexi-lambda.github.io/blog/2020/11/01/names-are-not-type-safety/) is a great article by Alexis King on the practical benefits of using newtypes versus other representations to ensure correctness. Overall, I think this is a really thought provoking piece on how design influences type safety, and "just wrapping something in a newtype" can be underpowered.    
+* [Names are not type safety](https://lexi-lambda.github.io/blog/2020/11/01/names-are-not-type-safety/) is a great article by Alexis King on the practical benefits of using newtypes versus other representations to ensure correctness. Overall, this is a really thought provoking piece on how design influences type safety, and shows how "just wrapping something in a newtype" can be underpowered.    
 * [Mirror Mirror: Reflection and Encoding Via](https://www.parsonsmatt.org/2020/02/04/mirror_mirror.html) provides a walkthrough for how to implement a JSON encoder using deriving via, which is a great way to write encoders and decoders for various types!    
 
 ## With a little help from my friends!
@@ -131,8 +131,8 @@ Here's a sampling of the "essential" articles I came across in 2020.
 Articles and projects by my co-workers...    
 
 * [Adventures in Refactoring](https://samtay.github.io/posts/refactoring-adventures) A thoughtful walkthrough of refactoring a section of Haskell by Sam Tay, who uses a combination of techniques like LambdaCase and carefully analyzing errors to create very readable code.    
-* [Enhancing Functor Structure Step-By-Step](https://blog.jle.im/entry/enhancing-functor-structures-step-by-step-1.html) Just Le walks through the "functor structure" programming style, using a specific example, and is a good introduction to his [Functor Combinatorpedia](https://blog.jle.im/entry/functor-combinatorpedia.html)    
-* [When threadWaitRead Doesn't](http://jfischoff.github.io/blog/when-threadwaitread-doesnt.html) Is a deep dive into Haskell IO by Jonathan Fishoff, who tells the story of debugging a network connection issue.    
+* [Enhancing Functor Structure Step-By-Step](https://blog.jle.im/entry/enhancing-functor-structures-step-by-step-1.html) Justin Le walks through the "functor structure" programming style, using a specific example, and is a good introduction to his [Functor Combinatorpedia](https://blog.jle.im/entry/functor-combinatorpedia.html)    
+* [When threadWaitRead Doesn't](http://jfischoff.github.io/blog/when-threadwaitread-doesnt.html) Is a deep dive into Haskell's `IO` by Jonathan Fishoff, who tells the story of debugging a network connection issue.    
 * [Commander-cli](https://github.com/SamuelSchlesinger/commander-cli) Sam Schleschesinger's type directed approach to parsing command line arguments.     
 * [Capturing the magic of Prelude.interact](http://gelisam.blogspot.com/2020/12/capturing-magic-of-preludeinteract.html) Is an analysis of `Prelude.interact` by gelisam, with an eye towards the important interaction between pure and `IO` bound code.    
 * [crdt-event-fold](https://hackage.haskell.org/package/crdt-event-fold-1.4.0.0/docs/Data-CRDT-EventFold.html) CRDTs are a fascinating idea for managing conflict-free operations over distributed systems, and Rick Owens provides a well engineered Haskell implementation with excellent docs!    
