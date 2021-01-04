@@ -136,6 +136,7 @@ Articles and projects by my co-workers...
 * [Commander-cli](https://github.com/SamuelSchlesinger/commander-cli) Sam Schleschesinger's type directed approach to parsing command line arguments.     
 * [Capturing the magic of Prelude.interact](http://gelisam.blogspot.com/2020/12/capturing-magic-of-preludeinteract.html) Is an analysis of `Prelude.interact` by gelisam, with an eye towards the important interaction between pure and `IO` bound code.    
 * [crdt-event-fold](https://hackage.haskell.org/package/crdt-event-fold-1.4.0.0/docs/Data-CRDT-EventFold.html) CRDTs are a fascinating idea for managing conflict-free operations over distributed systems, and Rick Owens provides a well engineered Haskell implementation with excellent docs!    
+* [ki](https://hackage.haskell.org/package/ki) is Mitchell Rosen's structured concurrency library, that provides a much nicer alternative to simply using green threads via `forkIO`!    
 
 ## In Summary
 
