@@ -8,7 +8,7 @@ date: January 3, 2021
 
 * I spent the year as a software engineer writing Haskell, and switched to remote work during the pandemic with everyone else.    
 * Wrote a lot of code, and focused on Haskell as a language for software engineering.    
-* Completed 3 courses from Georgia Tech on statistics, computer networking, and embedded compilers, as part of a masters program I'll finish in 2021.    
+* Completed 3 courses from Georgia Tech on bayesian statistics, computer networking, and embedded compilers, as part of a masters program I'll finish in 2021.    
 * Wrote more Haskell code this year than probably all other years combined, and made it through 2020 feeling pretty good about things. I'll mark that in the win column!    
 
 # This post
@@ -36,13 +36,14 @@ A big lesson for me this year is learning that a system can start out well, but 
     
 On a psychological note, through trial and error I realized I only have so many "high performance" hours in a week where you can be sustainably productive without lowering the quality of the hours you work.
 Some corporations have even found workers are even more productive with 3 day weeks versus 5!
+[source](https://web.archive.org/web/20191105011855/http://nypost.com/2019/11/04/microsoft-japans-3-day-weekends-boost-productivity-by-40/)
 I'm not saying we should go that far, but when you're home all the time coding in a pandemic, balance is key to staying fresh and effective!    
 
 ## Haskell Observations
 
 Contributing to ghc is HARD!    
 It's a complex and old code base, and although there is plenty of documentation, it takes a ton of work to be able to understand ghc well enough to contribute at the level needed to fix bugs and implement new features.
-That said, there is a ton of documentation work that still needs to be done, and is pretty beginner friendly!    
+That said, there is a ton of documentation work that still needs to be done, and is pretty beginner friendly work!    
 
 Use Template Haskell to generate code only as a last resort!
 The available alternatives, including deriving instances, have grown rich with options over the past few years, and these alternatives are less likely to eat up your compiler time or make cross-compilation an herculean task!
