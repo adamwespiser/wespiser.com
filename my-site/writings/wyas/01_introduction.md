@@ -1,10 +1,10 @@
 ---
-title: Introduction: The Bolts and Nuts of Scheme Interpreters in Haskell
-header: Introduction: The Bolts and Nuts of Scheme Interpreters in Haskell
+title: Introduction; The Bolts and Nuts of Scheme Interpreters in Haskell
+header: Introduction; The Bolts and Nuts of Scheme Interpreters in Haskell
 date: November 28, 2016
 author: Adam Wespiser
 ---
-------------
+
 > *The most important thing in the programming language is the name. A language will not succeed without a good name. I have recently invented a very good name and now I am looking for a suitable language.*  **Donald Knuth**
 
 ## What do we need to build a Scheme?
@@ -26,13 +26,13 @@ This may seem like a lot.  But don't worry, all these things, and more, are alre
 
 <img src="/img/WYAS-Dependency-Tree.png" style="height:auto; width:70%;">
 
-* **Main.hs** Handles the creation of the binary executable, parsing of command line options.
+* **Main.hs** Handles the creation of the binary executable.
+* **Cli.hs** Parsing of command line options, command line interface.
 * **Repl.hs** Read Evaluate Print Loop code.
 * **Parser.hs** Lexer and Parser using Parsec code. Responsibility for the creation of LispVal object from Text input.
 * **Eval.hs** Contains the evaluation function, `eval`. Patten matches on all configurations of S-Expressions and computes the resultant `LispVal`.
 * **LispVal.hs** defines LispVal, evaluation monad, LispException, and report printing functions.
-* **Prims.hs** Creates the primitive environment functions, which themselves are contained in a map.  These primitive functions are Haskell functions mapped to `LispVal`s.
-* **Pretty.hs** Pretty Printer, used for formatting error messages. Might drop this, what do you think?
+* **Prim.hs** Creates the primitive environment functions, which themselves are contained in a map.  These primitive functions are Haskell functions mapped to `LispVal`s.
 
 ## An Engineering Preface
 Before we start, there is a note I have to make on efficient memory usage Haskell.
@@ -73,7 +73,7 @@ data LispVal
   | Fun IFunc
   | Lambda IFunc EnvCtx
   | Nil
-  | Bool Bool deriving (Typeable)
+  | Bool Bool deriving (Eq)
 
 data IFunc = IFunc { fn :: [LispVal] -> Eval LispVal }
 ```
@@ -95,7 +95,6 @@ To handle lexical scoping, the lambda function must enclose the environment pres
 Conceptually, the easiest way is to just bring the environment along with the function.
 For an implementation, the data constructor `Lambda` accepts  `EnvCtx`, which is the lexical environment, as well as `IFunc`, which is a Haskell function.
 You'll notice it takes its arguments as a list of `LispVal`, then returns an object of type `Eval LispVal`.  For more on `Eval`, read the next section.
-There's also a `deriving (Typeable)`, which is needed for error handling.  More on that later!
 
 ## Evaluation Monad
 (from [LispVal.hs](https://github.com/write-you-a-scheme-v2/scheme/tree/master/src/LispVal.hs))
@@ -116,7 +115,6 @@ newtype Eval a = Eval { unEval :: ReaderT EnvCtx IO a }
            , Applicative
            , MonadReader EnvCtx
            , MonadIO)
-
 ```
 
 For evaluation, we need to handle the context of a couple of things: the environment of variable/value bindings, exception handling, and IO.
