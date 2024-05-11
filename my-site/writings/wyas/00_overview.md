@@ -47,7 +47,7 @@ Here's the overview of what we will be doing and where we will go:
 ## Why Lisp ?
 Although the majority of modern programming follows C/Algo style, Lisp syntax is simple, using the same syntax to represent code and data: the list.
 This is called homoiconicity, a feature which makes both parsing and evaluation much simpler compared to other languages.
-Scheme, a dialect of Lisp, is a particularly straight-forward.
+Scheme, a dialect of Lisp, is particularly straight-forward.
 We won't strictly follow the Scheme standard for the sake of brevity, but aim to include many useful features.
 If you are interested in what a fully fledged Scheme looks like, [Haskell-Scheme](https://hackage.haskell.org/package/husk-scheme) is a fully featured language, in Haskell, and [Chicken-Scheme implemented in C](https://code.call-cc.org/).
 Our Scheme contains the basic elements of these more featured languages.
